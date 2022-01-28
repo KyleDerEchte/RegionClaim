@@ -1,0 +1,37 @@
+name: RegionClaim
+main: de.kyleonaut.regionclaim.RegionClaimPlugin
+version: 1.0.0
+author: kyleonaut
+api-version: 1.16
+commands:
+  region:
+    permission: region.command
+    aliases:
+      - r
+      - re
+
+permissions:
+  region.info:
+    default: op
+  region.delete:
+    default: op
+  region.delete.admin:
+    default: op
+  region.list:
+    default: op
+  region.setowner:
+    default: op
+  region.setowner.admin:
+    default: op
+  region.trust:
+    default: op
+  region.trust.admin:
+    default: op
+  region.untrust:
+    default: op
+  region.untrust.admin:
+    default: op
+  region.create:
+    default: op
+  region.command:
+    default: op
