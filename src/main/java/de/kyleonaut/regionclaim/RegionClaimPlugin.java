@@ -28,6 +28,7 @@ public class RegionClaimPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new RegionCreateListener(this.regionService), this);
         Bukkit.getPluginManager().registerEvents(new RegionListener(), this);
         Objects.requireNonNull(getCommand("region")).setExecutor(new RegionCommand());
+        Objects.requireNonNull(getCommand("region")).setTabCompleter(new RegionCommand());
     }
 
     public void init() {

@@ -1,20 +1,25 @@
 package de.kyleonaut.regionclaim.command;
 
 import de.kyleonaut.regionclaim.command.subcommand.*;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author kyleonaut
  * @version 1.0.0
  * created at 27.01.2022
  */
-public class RegionCommand implements CommandExecutor {
+public class RegionCommand implements CommandExecutor, TabCompleter {
     private final Map<String, SubCommand> commandMap;
 
     public RegionCommand() {
@@ -66,5 +71,13 @@ public class RegionCommand implements CommandExecutor {
         player.sendMessage("§e/region delete §7- Löscht die Region.");
         player.sendMessage("§e/region list §7- Liste alle Regionen auf dem Server auf.");
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
+        if (args.length == 1) {
+            return List.of("info", "trust", "untrust", "setowner", "delete", "list");
+        }
+        return Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).collect(Collectors.toList());
     }
 }
