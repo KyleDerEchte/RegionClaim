@@ -44,12 +44,12 @@ public class RegionCommand implements CommandExecutor {
         }
         if (args.length == 0) {
             player.sendMessage("§8§m---§r§8[§6Region§8]§m---");
-            player.sendMessage("§e/region info §7- Zeigt dir Informationen über die Region an, in der du stehst.");
-            player.sendMessage("§e/region trust <Spieler> §7- Fügt den Spieler als vertrauten Spieler hinzu.");
-            player.sendMessage("§e/region untrust <Spieler> §7- Entfernt den Spieler als vertrauten Spieler.");
-            player.sendMessage("§e/region setowner <Spieler> §7- Übertrage die Besitzrechte dieser Region.");
-            player.sendMessage("§e/region delete §7- Löscht die Region.");
-            player.sendMessage("§e/region list §7- Liste alle Regionen auf dem Server auf.");
+            player.sendMessage("§e/region info");
+            player.sendMessage("§e/region trust <Spieler>");
+            player.sendMessage("§e/region untrust <Spieler>");
+            player.sendMessage("§e/region setowner <Spieler>");
+            player.sendMessage("§e/region delete");
+            player.sendMessage("§e/region list");
             return true;
         }
         for (String s : commandMap.keySet()) {
