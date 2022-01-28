@@ -25,7 +25,7 @@ public class RegionListener implements Listener {
         if (event.getAction().equals(Action.PHYSICAL) || event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.LEFT_CLICK_AIR)) {
             if (regionService.isForbiddenToPerform(player, player.getLocation())) {
                 event.setCancelled(true);
-                player.sendMessage("§8[§6Region§8] §7Du bist nicht als vertrauter Spieler oder Regionbesitzer eingetragen.");
+                player.sendMessage("§8[§6Region§8] §7Du bist nicht als vertrauter Spieler eingetragen.");
                 player.sendMessage("§8[§6Region§8] §7Du darfst diese Aktion nicht ausführen.");
             }
             return;
@@ -35,7 +35,7 @@ public class RegionListener implements Listener {
         }
         if (regionService.isForbiddenToPerform(player, event.getClickedBlock().getLocation())) {
             event.setCancelled(true);
-            player.sendMessage("§8[§6Region§8] §7Du bist nicht als vertrauter Spieler oder Regionbesitzer eingetragen.");
+            player.sendMessage("§8[§6Region§8] §7Du bist nicht als vertrauter Spieler eingetragen.");
             player.sendMessage("§8[§6Region§8] §7Du darfst diese Aktion nicht ausführen.");
         }
     }
@@ -47,7 +47,7 @@ public class RegionListener implements Listener {
         }
         final RegionService regionService = RegionClaimPlugin.getPlugin(RegionClaimPlugin.class).getRegionService();
         if (regionService.isForbiddenToPerform(player, event.getEntity().getLocation())) {
-            player.sendMessage("§8[§6Region§8] §7Du bist nicht als vertrauter Spieler oder Regionbesitzer eingetragen.");
+            player.sendMessage("§8[§6Region§8] §7Du bist nicht als vertrauter Spieler eingetragen.");
             player.sendMessage("§8[§6Region§8] §7Du darfst diese Aktion nicht ausführen.");
             event.setCancelled(true);
         }
@@ -57,7 +57,7 @@ public class RegionListener implements Listener {
     public void onBlockPlace(BlockPlaceEvent event) {
         final RegionService regionService = RegionClaimPlugin.getPlugin(RegionClaimPlugin.class).getRegionService();
         if (regionService.isForbiddenToPerform(event.getPlayer(), event.getBlockPlaced().getLocation())) {
-            event.getPlayer().sendMessage("§8[§6Region§8] §7Du bist nicht als vertrauter Spieler oder Regionbesitzer eingetragen.");
+            event.getPlayer().sendMessage("§8[§6Region§8] §7Du bist nicht als vertrauter Spieler eingetragen.");
             event.getPlayer().sendMessage("§8[§6Region§8] §7Du darfst diese Aktion nicht ausführen.");
             event.setCancelled(true);
         }
@@ -67,7 +67,7 @@ public class RegionListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         final RegionService regionService = RegionClaimPlugin.getPlugin(RegionClaimPlugin.class).getRegionService();
         if (regionService.isForbiddenToPerform(event.getPlayer(), event.getBlock().getLocation())) {
-            event.getPlayer().sendMessage("§8[§6Region§8] §7Du bist nicht als vertrauter Spieler oder Regionbesitzer eingetragen.");
+            event.getPlayer().sendMessage("§8[§6Region§8] §7Du bist nicht als vertrauter Spieler eingetragen.");
             event.getPlayer().sendMessage("§8[§6Region§8] §7Du darfst diese Aktion nicht ausführen.");
             event.setCancelled(true);
         }
