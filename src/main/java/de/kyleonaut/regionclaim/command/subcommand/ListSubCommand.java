@@ -43,7 +43,7 @@ public class ListSubCommand implements SubCommand {
             }
             final StringBuilder trustsBuilder = new StringBuilder();
             for (RegionUser trust : trusts) {
-                if (owners.lastIndexOf(trust) == owners.size() - 1) {
+                if (trusts.lastIndexOf(trust) == trusts.size() - 1) {
                     trustsBuilder.append("§e").append(trust.getName());
                     break;
                 }
