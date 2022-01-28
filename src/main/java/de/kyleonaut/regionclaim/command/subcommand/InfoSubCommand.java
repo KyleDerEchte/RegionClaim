@@ -31,7 +31,7 @@ public class InfoSubCommand implements SubCommand {
         final List<RegionUser> trusts = region.getRegionUsers().stream().filter(regionUser -> regionUser.getRegionRole().equals(RegionRole.TRUSTED)).collect(Collectors.toList());
         final StringBuilder ownersBuilder = new StringBuilder();
         for (RegionUser owner : owners) {
-            if (owners.lastIndexOf(owner) == owners.size() - 1) {
+            if (owners.indexOf(owner) == (owners.size() - 1)) {
                 ownersBuilder.append("§e").append(owner.getName());
                 break;
             }
@@ -39,7 +39,7 @@ public class InfoSubCommand implements SubCommand {
         }
         final StringBuilder trustsBuilder = new StringBuilder();
         for (RegionUser trust : trusts) {
-            if (owners.lastIndexOf(trust) == owners.size() - 1) {
+            if (trusts.indexOf(trust) == (trusts.size() - 1)) {
                 trustsBuilder.append("§e").append(trust.getName());
                 break;
             }
