@@ -50,7 +50,10 @@ public class TrustSubCommand implements SubCommand {
             return;
         }
         final List<RegionUser> regionUsers = new ArrayList<>(region.getRegionUsers());
-        final Optional<RegionUser> optionalRegionUser = regionUsers.stream().filter(regionUser -> regionUser.getUuid().equals(player.getUniqueId())).findFirst();
+        final Optional<RegionUser> optionalRegionUser = regionUsers.stream()
+                .filter(regionUser -> regionUser.getUuid().equals(player.getUniqueId()))
+                .filter(regionUser -> regionUser.getRegionRole().equals(RegionRole.OWNER))
+                .findFirst();
         if (optionalRegionUser.isEmpty() && !player.hasPermission("region.trust.admin")) {
             player.sendMessage("§8[§6Region§8] §7Du kannst Spieler nur in deiner eigenen Region zu den vertrauten Spielern hinzufügen.");
             return;

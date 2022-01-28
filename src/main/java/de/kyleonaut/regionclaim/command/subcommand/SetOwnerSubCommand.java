@@ -47,12 +47,17 @@ public class SetOwnerSubCommand implements SubCommand {
             return;
         }
         final List<RegionUser> regionUsers = new ArrayList<>(region.getRegionUsers());
-        final Optional<RegionUser> optionalRegionUser = regionUsers.stream().filter(regionUser -> regionUser.getUuid().equals(player.getUniqueId())).findFirst();
+        final Optional<RegionUser> optionalRegionUser = regionUsers.stream()
+                .filter(regionUser -> regionUser.getUuid().equals(player.getUniqueId()))
+                .filter(regionUser -> regionUser.getRegionRole().equals(RegionRole.OWNER))
+                .findFirst();
         if (optionalRegionUser.isEmpty() && !player.hasPermission("region.setowner.admin")) {
             player.sendMessage("§8[§6Region§8] §7Du kannst die Besitzrechte nur für deine eigene Region ändern.");
             return;
         }
-        final List<RegionUser> owners = regionUsers.stream().filter(regionUser -> regionUser.getRegionRole().equals(RegionRole.OWNER)).collect(Collectors.toList());
+        final List<RegionUser> owners = regionUsers.stream()
+                .filter(regionUser -> regionUser.getRegionRole().equals(RegionRole.OWNER))
+                .collect(Collectors.toList());
         owners.forEach(regionUsers::remove);
         regionUsers.add(new RegionUser(target.getName(), target.getUniqueId(), RegionRole.OWNER));
         region.setRegionUsers(regionUsers);

@@ -4,6 +4,7 @@ package de.kyleonaut.regionclaim.command.subcommand;
 import de.kyleonaut.regionclaim.RegionClaimPlugin;
 import de.kyleonaut.regionclaim.command.SubCommand;
 import de.kyleonaut.regionclaim.entity.Region;
+import de.kyleonaut.regionclaim.entity.RegionRole;
 import de.kyleonaut.regionclaim.entity.RegionUser;
 import org.bukkit.entity.Player;
 
@@ -40,14 +41,23 @@ public class UnTrustSubCommand implements SubCommand {
             return;
         }
         final List<RegionUser> regionUsers = new ArrayList<>(region.getRegionUsers());
-        final Optional<RegionUser> optionalRegionUser = regionUsers.stream().filter(regionUser -> regionUser.getUuid().equals(player.getUniqueId())).findFirst();
+        final Optional<RegionUser> optionalRegionUser = regionUsers.stream()
+                .filter(regionUser -> regionUser.getUuid().equals(player.getUniqueId()))
+                .filter(regionUser -> regionUser.getRegionRole().equals(RegionRole.OWNER))
+                .findFirst();
         if (optionalRegionUser.isEmpty() && !player.hasPermission("region.trust.admin")) {
             player.sendMessage("§8[§6Region§8] §7Du kannst Spieler nur in deiner eigenen Region von den vertrauten Spielern entfernen.");
             return;
         }
-        regionUsers.stream().filter(regionUser -> regionUser.getName().equalsIgnoreCase(args[1])).findFirst().ifPresent(regionUsers::remove);
-        region.setRegionUsers(regionUsers);
-        plugin.getRegionService().update();
-        player.sendMessage("§8[§6Region§8] §7Der Spieler wurde erfolgreich von den vertrauten Spielern entfernt.");
+        regionUsers.stream()
+                .filter(regionUser -> regionUser.getRegionRole().equals(RegionRole.TRUSTED))
+                .filter(regionUser -> regionUser.getName().equalsIgnoreCase(args[1]))
+                .findFirst()
+                .ifPresentOrElse(regionUser -> {
+                    regionUsers.remove(regionUser);
+                    region.setRegionUsers(regionUsers);
+                    plugin.getRegionService().update();
+                    player.sendMessage("§8[§6Region§8] §7Der Spieler wurde erfolgreich von den vertrauten Spielern entfernt.");
+                }, () -> player.sendMessage("§8[§6Region§8] §7Der Spieler ist kein vertrauter Spieler."));
     }
 }
